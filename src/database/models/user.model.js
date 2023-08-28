@@ -15,6 +15,12 @@ const userSchema = new Schema({
   email: {
     type: String
   }
+}, {
+  methods: {
+    findGoogleOrCreate(cb) {
+      return mongoose.model('User').findOne({googleID: this.googleId}, cb)
+    }
+  }
 })
 
 const User = mongoose.model('User', userSchema)
