@@ -4,7 +4,7 @@ const { app } = require('./index')
 const { conn } = require('./src/database/database')
 
 const startSever = () => {
-  app.listen(3000, () => {
+  app.listen(3030, () => {
     conn()
     console.log('The is running on port 3000')
   })
