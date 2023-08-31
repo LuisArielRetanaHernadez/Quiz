@@ -10,8 +10,10 @@ router.get('/auth/google', passport.authenticate('google', {
   scope: ['email', 'profile']
 }))
 
-router.get('auth/google/redirect', passport.authenticate('google'), {
-  failureRedirect: "login"
+router.get('auth/google/redirect', passport.authenticate('google', { 
+  failureRedirect: '/login'
+}), (req, res, next) => {
+  
 })
 
 module.exports = { routerAuth: router }
