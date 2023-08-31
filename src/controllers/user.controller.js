@@ -9,6 +9,8 @@ const bcrypt = require('bcryptjs')
 
 const jwt = require('jsonwebtoken')
 
+require('dotenv').config()
+
 exports.createUser = tryCatch( async (req, res, next) => {
   // If not register Email
   const { email } = req.body
@@ -54,7 +56,7 @@ exports.loginUser = tryCatch( async (req, res, next) => {
     return next( new ErrorApp('Login fail', 404))
   }
 
-  const token = jwt.sign({id: userFind._id}, "Hola-2/", { expiresIn: '1min' })
+  const token = jwt.sign({id: userFind._id}, process.env.JWT_SECRET, { expiresIn: '1min' })
 
   return res.status(202).json({
     message: 'ssuccesfy login',
