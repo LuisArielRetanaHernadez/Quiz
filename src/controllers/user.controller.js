@@ -1,6 +1,3 @@
-// database
-const { conn } = require('../database/database')
-
 // database -> models
 const { User } = require('../database/models/user.model')
 
@@ -9,6 +6,8 @@ const { ErrorApp } = require('../utils/ErroAppr')
 const tryCatch = require('../utils/catchAsyn.util')
 
 const bcrypt = require('bcryptjs')
+
+const jwt = require('jsonwebtoken')
 
 exports.createUser = tryCatch( async (req, res, next) => {
   // If not register Email
@@ -41,24 +40,27 @@ exports.createUser = tryCatch( async (req, res, next) => {
   })
 })
 
-.exports.loginUser = tryCatch( async (req, res, next) => {
+exports.loginUser = tryCatch( async (req, res, next) => {
   const { email, password } = req.body
-  const userFind = User.findOne({email})
+  const userFind = await User.findOne({email})
 
   if (!userFind) {
     return next( new ErrorApp('Login fail', 404))
   }
 
-  const isPassword = bcrypt.compareSync(userFind.password, password)
+  const isPassword = bcrypt.compareSync(password, userFind.password)
 
   if (!isPassword) {
     return next( new ErrorApp('Login fail', 404))
   }
 
+  const token = jwt.sign({id: userFind._id}, "Hola-2/", { expiresIn: '1min' })
+
   return res.status(202).json({
     message: 'ssuccesfy login',
     data: {
       userFind
-    }
+    },
+    token
   })
 })
