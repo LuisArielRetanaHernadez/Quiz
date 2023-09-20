@@ -8,13 +8,16 @@ const questionSchema = new Schema({
     ref: 'Room'
   },
   Question: {
-    type: String
+    type: String,
+    required: true
   },
   correct_question: {
-    type: [String]
+    type: [String],
+    required: true
   },
   incorrect_question: {
-    type: [String]
+    type: [String],
+    required: true
   },
   roomID: {
     type: Schema.Types.ObjectId,
