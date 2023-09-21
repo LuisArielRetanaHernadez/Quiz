@@ -2,6 +2,7 @@
 const { User } = require('../database/models/user.model')
 const { Room } = require('../database/models/room.model')
 const { Question } = require('../database/models/question.model')
+const { RoomUser } = require('../database/models/roomUser.model')
 
 // utils
 const { ErrorApp } = require('../utils/ErroAppr')
