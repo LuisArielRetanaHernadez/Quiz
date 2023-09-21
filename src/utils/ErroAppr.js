@@ -1,8 +1,8 @@
 class ErrorApp extends Error {
-  constructor(message, status, statusCode) {
+  constructor(message, status) {
     super(message)
     this.message = message
-    this.statusCode = statusCode
+    this.statusCode = status
     this.status = `${this.statusCode}`.startsWith(4) ? 'warring' : 'fail'
     Error.captureStackTrace(this, this.constructor)
   }
