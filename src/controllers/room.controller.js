@@ -6,4 +6,30 @@ const { Question } = require('../database/models/question.model')
 // utils
 const { ErrorApp } = require('../utils/ErroAppr')
 const tryCatch = require('../utils/catchAsyn.util')
-exports.createRoom = 
+
+// jwt
+const jwt = require('jsonwebtoken')
+
+require('dotenv').config()
+
+exports.createRoom = tryCatch( async(req, res, next) => {
+  const { id } = req.currentUser
+
+  const token = jwt.sign({idUser: id}, process.env.JWT_SECRET)
+
+  const data = {
+    ...req.body,
+    token
+  }
+
+  const roomNew = new Room(data)
+  await roomNew.save()
+
+  return res.status(202).json({
+    status: 'Success',
+    message: 'The Room successful create',
+    data: {
+      room: roomNew
+    }
+  })
+})
