@@ -56,12 +56,14 @@ exports.loginUser = tryCatch( async (req, res, next) => {
     return next( new ErrorApp('Login fail', 404))
   }
 
-  const token = jwt.sign({id: userFind._id}, process.env.JWT_SECRET, { expiresIn: '1min' })
+  const token = jwt.sign({id: userFind._id}, process.env.JWT_SECRET, { expiresIn: '3min' })
+
+  userFind.password = undefined
 
   return res.status(202).json({
     message: 'ssuccesfy login',
-    data: {
-      userFind
+    user: {
+      ...userFind._doc
     },
     token
   })
