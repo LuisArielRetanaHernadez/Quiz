@@ -20,6 +20,7 @@ exports.createRoom = tryCatch( async(req, res, next) => {
 
   const data = {
     ...req.body,
+    IDuser: id,
     token
   }
 
