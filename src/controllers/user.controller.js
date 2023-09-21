@@ -56,7 +56,7 @@ exports.loginUser = tryCatch( async (req, res, next) => {
     return next( new ErrorApp('Login fail', 404))
   }
 
-  const token = jwt.sign({id: userFind._id}, process.env.JWT_SECRET, { expiresIn: '3min' })
+  const token = jwt.sign({id: userFind._id}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE })
 
   userFind.password = undefined
 
