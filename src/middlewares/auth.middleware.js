@@ -2,6 +2,9 @@
 const { ErrorApp } = require('../utils/ErroAppr')
 const tryCatch = require('../utils/catchAsyn.util')
 
+// models
+const { Room } = require('../database/models/room.model')
+
 const jwt = require('jsonwebtoken')
 
 require('dotenv').config()
@@ -28,6 +31,20 @@ exports.authUser = tryCatch( async (req, res, next) => {
   })
 
   req.currentUser = tokenValid
+
+  return next()
+})
+
+exports.protectRoom = tryCatch( async (req, res, next) => {
+  const { id } = req.currentUser
+
+  const findRoom = await Room.findOne({IDuser: id})
+
+  if (!findRoom) { 
+    return next( new ErrorApp('We did not find a room with these credentials', 400))
+  }
+
+  req.currentRoom = findRoom
 
   return next()
 })
