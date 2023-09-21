@@ -18,11 +18,14 @@ exports.authUser = tryCatch( async (req, res, next) => {
     return next( new ErrorApp('Not authorized', 401))
   }
 
-  const tokenValid = jwt.verify(token, process.env.JWT_SECRET)
+  const tokenValid = jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+    console.log('error token ', error)
+    if (error) {
+      return next( new ErrorApp('Not Authorized', 401))
+    }
 
-  if (!tokenValid) {
-    return next( new ErrorApp('Not Authorized', 401))
-  }
+    return decoded
+  })
 
   req.currentUser = tokenValid
 
