@@ -29,11 +29,13 @@ const roomSchema = new Schema({
     }]
   },
   password: {
-    type: String
+    type: String,
+    default: null
   },
-  userID: {
+  IDuser: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   }
 })
 
