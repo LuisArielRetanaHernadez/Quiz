@@ -11,11 +11,11 @@ const questionSchema = new Schema({
     type: String,
     required: true
   },
-  correct_question: {
+  correct_answer: {
     type: [String],
     required: true
   },
-  incorrect_question: {
+  answers: {
     type: [String],
     required: true
   },
