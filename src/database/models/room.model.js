@@ -4,7 +4,8 @@ const { Schema } = mongoose
 
 const roomSchema = new Schema({
   title: {
-    type: String
+    type: String,
+    required: true,
   },
   token: {
     type: String,
@@ -18,6 +19,7 @@ const roomSchema = new Schema({
   },
   points: {
     type: Number,
+    required: true
   },
   places: {
     type: Number,
