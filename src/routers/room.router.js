@@ -12,10 +12,11 @@ const { validate } = require('../middlewares/validationsBody.middleware')
 
 // body
 const { create } = require('../middlewares/express_validator/roomBody.middleware')
+const { validatedQuiz } = require('../middlewares/express_validator/questionBody.middleware')
 
 const router = express.Router()
 
 router.post('/', authUser, validate(create), createRoom)
-router.post('/:id/create/quiz', authUser, protectRoom, createQuiz)
+router.post('/:id/quiz/create', authUser, protectRoom, validate(validatedQuiz), createQuiz)
 
 module.exports = { routerRoom: router}
