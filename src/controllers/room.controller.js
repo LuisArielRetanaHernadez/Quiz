@@ -35,3 +35,30 @@ exports.createRoom = tryCatch( async(req, res, next) => {
     }
   })
 })
+
+exports.createQuiz = tryCatch( async(req, res, next) => {
+  const idUser = req.currentUser.id
+  const idRoom = req.currentRoom.id
+
+  const data = {
+    ...req.body,
+    roomID: idRoom
+  }
+
+  console.log('data del question ', data)
+
+  const newQuiz = new Question(data)
+
+  await newQuiz.save()
+
+  if (!newQuiz) {
+    return next( new ErrorApp('Error, the Quiz was not created',406 ))
+  }
+
+  return res.status(201).json({
+    message: 'creaete ssuccesfy',
+    quiz: {
+      newQuiz
+    }
+  })
+})
