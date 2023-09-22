@@ -4,16 +4,16 @@ const { body } = require('express-validator')
 
 const { ErrorApp } = require('../../utils/ErroAppr')
 
-exports.create = [
-  body('answer')
+exports.validatedQuiz = [
+  body('answers')
   .notEmpty()
   .withMessage('Undefined answer')
   .isArray()
   .withMessage('answer nust be an array'),
-  body('answer.*')
+  body('answers.*')
   .isString()
   .withMessage('answer must be string'),
-  body('answer_correct.*')
+  body('correct_answer.*')
   .isString()
   .withMessage('answer correct must be string'),
   body('question')
