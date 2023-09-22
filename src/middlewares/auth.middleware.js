@@ -38,7 +38,6 @@ exports.authUser = tryCatch( async (req, res, next) => {
 exports.protectRoom = tryCatch( async (req, res, next) => {
   const { id } = req.currentUser
   const idRoom = req.params.id
-  console.log('room find > ', idRoom, ' id user ', id)
 
   const findRoom = await Room.findOne({_id: idRoom, IDuser: id})
   if (!findRoom) { 
